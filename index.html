@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Шелковый путь</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap">
+<style>
+/* Layout: 1440 desktop grid from the Figma file — 48px outer gutter, right column starts at 37.5% (about, advantages), steps in 4 equal columns. */
+:root {
+  --red: #ec1c24;
+  --ink: #000000;
+  --ink-soft: #011c22;
+  --paper: #ffffff;
+  --muted: #8f8f8f;
+  --rule: #f2a3a6;
+  --rule-end: #d9d9d9;
+  --nav-bg: rgba(96, 96, 96, 0.27);
+  --font: "Open Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --gutter: 48px;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 18px;
+  line-height: 1.28;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-weight: 600; text-wrap: balance; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+
+.wrap {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
+}
+.h2 { font-size: 42px; line-height: 1.14; letter-spacing: 0.04em; }
+
+/* ---------- Header ---------- */
+.topbar {
+  position: absolute; inset: 0 0 auto; z-index: 20;
+  background: var(--nav-bg);
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.topbar .bar {
+  height: 53px; display: flex; align-items: center; justify-content: space-between;
+  max-width: 1440px; margin: 0 auto;
+  padding-left: max(21px, env(safe-area-inset-left, 0px));
+  padding-right: max(21px, env(safe-area-inset-right, 0px));
+}
+.logo { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: #fff; height: 29px; }
+.logo { position: relative; width: 119px; }
+.logo .mark { position: absolute; left: 0; top: 0.56px; width: 30.54px; height: 28.44px; }
+.logo .word { position: absolute; left: 37.24px; top: 0; width: 81.77px; height: 25.82px; }
+.nav { display: flex; align-items: center; gap: 70px; margin-right: 6px; }
+.nav a {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.6px; color: #fff; text-decoration: none;
+  line-height: 1; white-space: nowrap; transition: opacity .2s;
+}
+.nav a:hover { opacity: .7; }
+.nav .nav-cta {
+  background: #fff; color: #000; border-radius: 4px; width: 128px; height: 31px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.nav .nav-cta:hover { opacity: 1; background: var(--red); color: #fff; }
+.burger { display: none; background: none; border: 0; padding: 8px; cursor: pointer; color: #fff; }
+.burger span { display: block; width: 22px; height: 2px; background: currentColor; margin: 5px 0; transition: transform .25s, opacity .25s; }
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative; color: #fff; min-height: 767px; overflow: hidden;
+  background: #0a0204 url("assets/hero.jpg") center / cover no-repeat;
+}
+.hero .wrap { padding-block: 221px 120px; position: relative; z-index: 1; }
+.hero h1 { font-size: 42px; line-height: 1.15; max-width: 700px; }
+.hero p { font-size: 18px; line-height: 1.28; max-width: 603px; margin-top: 32px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 53px; min-width: 237px; padding: 0 32px; border-radius: 6px; border: 0;
+  font: 600 20px/0.9 var(--font); cursor: pointer; text-decoration: none;
+  transition: background-color .2s, color .2s;
+}
+.btn-light { background: #fff; color: #000; }
+.btn-light:hover { background: var(--red); color: #fff; }
+.btn-dark { background: #000; color: #fff; }
+.btn-dark:hover { background: var(--red); }
+.hero .btn { margin-top: 31px; margin-left: 4px; }
+
+/* ---------- About + map ---------- */
+.about { position: relative; }
+.about .map {
+  position: absolute; left: 0; right: 0; top: 106px; height: 1028px; margin: 0 auto; max-width: 1440px;
+  background: url("assets/map.webp") center top / 100% auto no-repeat;
+  pointer-events: none;
+}
+.about .wrap { position: relative; }
+.about-text {
+  margin-left: calc(37.5% - var(--gutter) + 13px); max-width: 816px;
+  padding-top: 95px;
+}
+.about-text p { font-size: 20px; margin-top: 30px; max-width: 757px; }
+
+.supply-title { padding-top: 306px; max-width: 721px; }
+
+/* ---------- Cards ---------- */
+.cards {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+  max-width: 1440px; margin: 61px auto 0; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(21px, env(safe-area-inset-right, 0px));
+  position: relative;
+}
+.card {
+  position: relative; border-radius: 10px; overflow: hidden; min-height: 488px; color: #fff;
+  padding: 235px 27px 30px;
+  display: flex; flex-direction: column; gap: 20px;
+}
+.card-red { background: var(--red); }
+.card-photo { background-color: #141012; background-size: cover; background-position: center; }
+.card-photo::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.19); }
+.card-photo.chips { background-image: url("assets/card-chips.jpg"); }
+.card-photo.machine { background-image: url("assets/card-machine.jpg"); }
+.card > * { position: relative; }
+.card h3 { font-size: 28px; line-height: 1.2; }
+.card p { font-size: 18px; line-height: 1.23; letter-spacing: 0.01em; }
+.card-photo p { text-shadow: 0 1px 7.7px rgba(0,0,0,.84); }
+
+/* ---------- Advantages ---------- */
+.adv { padding-top: 119px; }
+.adv-inner { margin-left: calc(37.5% - var(--gutter) + 14px); }
+.adv-list { list-style: none; margin: 43px 0 0; padding: 0; }
+.adv-list li {
+  display: grid; grid-template-columns: 381px 1fr; align-items: center; gap: 0 24px;
+  min-height: 112px; padding: 20px 0; border-bottom: 1.5px solid var(--rule);
+}
+.adv-list li:first-child { padding-top: 0; min-height: 75px; }
+.adv-list li:last-child { border-bottom-color: var(--rule-end); }
+.adv-list h3 { font-size: 28px; line-height: 1.14; letter-spacing: 0.04em; }
+.adv-list p { font-size: 20px; max-width: 467px; }
+
+/* ---------- Steps ---------- */
+.steps { padding-top: 165px; }
+.steps-bar {
+  margin-top: 39px; height: 144px; overflow: hidden;
+  background: linear-gradient(90deg, #000 0%, var(--red) 81.73%);
+}
+.steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); max-width: 1440px; margin: 0 auto; }
+.steps-bar .steps-grid { height: 100%; }
+.steps-bar .cell { position: relative; border-left: 1px solid rgba(255,255,255,.35); }
+.steps-bar .cell:first-child { border-left: 0; }
+.num {
+  position: absolute; top: 32px; left: 44px;
+  font-size: 113px; line-height: 1.21; color: rgba(255,255,255,.3); font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+.steps-text .cell { padding: 29px 30px 0 48px; }
+.steps-text .cell:nth-child(n+2) { padding-left: 44px; }
+.steps-text h3 { font-size: 28px; line-height: 1.14; letter-spacing: 0.04em; }
+.steps-text p { font-size: 20px; margin-top: 14px; max-width: 290px; }
+
+/* ---------- Contact form ---------- */
+.contact { padding-top: 175px; padding-bottom: 150px; }
+.contact-grid { display: grid; grid-template-columns: 410px 1fr; gap: 48px; }
+.contact-info .lead { font-size: 17px; margin-top: 20px; max-width: 366px; }
+.contact-info .direct { font-size: 17px; margin-top: 41px; line-height: 1.5; }
+.contact-info .phone { font-weight: 600; text-decoration: none; }
+.contact-info .phone:hover { color: var(--red); }
+
+.form { display: grid; grid-template-columns: 445fr 455fr; gap: 13px; }
+.field { position: relative; }
+.field.full { grid-column: 1 / -1; }
+.field input, .field textarea {
+  width: 100%; height: 80px; border: 1.5px solid #000; border-radius: 7px; background: #fff;
+  padding: 34px 28px 12px; font: 400 16px/1.3 var(--font); color: #000; outline: none; transition: border-color .2s;
+}
+.field textarea { height: 295px; resize: vertical; padding-top: 40px; }
+.field label {
+  position: absolute; left: 29px; top: 30px; font-size: 13px; color: var(--muted);
+  pointer-events: none; transition: top .2s, font-size .2s, color .2s;
+}
+.field input:focus, .field textarea:focus { border-color: var(--red); }
+.field input:focus + label, .field input:not(:placeholder-shown) + label,
+.field textarea:focus + label, .field textarea:not(:placeholder-shown) + label { top: 14px; font-size: 11px; }
+.field.invalid input { border-color: var(--red); }
+.field .err { position: absolute; left: 29px; bottom: 6px; font-size: 11px; color: var(--red); }
+
+.form-foot { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; margin-top: 9px; }
+.checks { display: grid; gap: 14px; }
+.check { display: flex; align-items: center; gap: 11px; font-size: 13px; color: var(--muted); cursor: pointer; max-width: 611px; line-height: 1.38; }
+.check input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.check .box {
+  width: 29px; height: 29px; flex: none; border: 1.5px solid var(--muted); border-radius: 5px;
+  display: grid; place-items: center; transition: border-color .2s, background .2s;
+}
+.check .box svg { width: 15px; height: 15px; opacity: 0; }
+.check input:checked + .box { border-color: #000; background: #000; }
+.check input:checked + .box svg { opacity: 1; }
+.check input:focus-visible + .box { outline: 2px solid var(--red); outline-offset: 2px; }
+.check.invalid .box { border-color: var(--red); }
+.form .btn { flex: none; margin-top: 12px; }
+.form-done {
+  grid-column: 1 / -1; border: 1.5px solid #000; border-radius: 7px; padding: 40px 32px;
+  display: grid; gap: 12px;
+}
+.form-done h3 { font-size: 28px; }
+
+/* ---------- Footer ---------- */
+.footer .wrap { padding-left: max(21px, env(safe-area-inset-left, 0px)); padding-right: max(21px, env(safe-area-inset-right, 0px)); }
+.footer-row {
+  border-top: 1px solid var(--red); padding-block: 25px 30px;
+  display: grid; grid-template-columns: 236px 1fr auto; align-items: center; gap: 24px;
+  font-size: 13px; line-height: 1.4; letter-spacing: 0.02em; color: var(--ink-soft);
+}
+.footer .logo { color: var(--ink-soft); }
+.footer .phone { font-weight: 600; text-decoration: none; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1260px) {
+  .nav { gap: 36px; }
+  .adv-list li { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+@media (max-width: 1100px) {
+  :root { --gutter: 32px; }
+  .h2, .hero h1 { font-size: 36px; }
+  .about-text, .adv-inner { margin-left: 0; }
+  .about .map { top: 330px; opacity: .6; }
+  .about-text { max-width: 720px; }
+  .supply-title { padding-top: 220px; }
+  .cards { grid-template-columns: repeat(2, 1fr); padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); }
+  .contact-grid { grid-template-columns: 1fr; }
+  .steps-text p { font-size: 18px; }
+  .steps-text .cell, .steps-text .cell:nth-child(n+2) { padding-left: 24px; padding-right: 16px; }
+  .num { left: 24px; font-size: 90px; top: 40px; }
+}
+@media (max-width: 900px) {
+  .burger { display: block; }
+  .nav {
+    position: absolute; top: calc(53px + env(safe-area-inset-top, 0px)); left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 0; margin: 0;
+    background: rgba(12, 4, 6, .96); padding: 8px max(21px, env(safe-area-inset-right, 0px)) 20px max(21px, env(safe-area-inset-left, 0px));
+    display: none;
+  }
+  .topbar.open .nav { display: flex; }
+  .nav a { font-size: 16px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.12); }
+  .nav .nav-cta { width: 100%; height: 48px; margin-top: 16px; border: 0; font-size: 16px; }
+  .topbar.open .burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .topbar.open .burger span:nth-child(2) { opacity: 0; }
+  .topbar.open .burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .adv-list li { grid-template-columns: 1fr; gap: 10px; min-height: 0; padding: 22px 0; }
+  .adv-list li:first-child { padding-top: 0; min-height: 0; }
+  .steps-bar { display: none; }
+  .steps-text { margin-top: 32px; }
+  .steps-grid.steps-text { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .steps-text .cell, .steps-text .cell:nth-child(n+2) {
+    padding: 0; border-radius: 10px; overflow: hidden; display: block;
+  }
+  .steps-text .cell .mnum {
+    display: block; height: 96px; position: relative; overflow: hidden; margin-bottom: 18px; border-radius: 10px;
+    background: linear-gradient(90deg, #000, var(--red));
+  }
+  .steps-text .cell:nth-child(2) .mnum { background: linear-gradient(90deg, #2a0306, #a5131a); }
+  .steps-text .cell:nth-child(3) .mnum { background: linear-gradient(90deg, #6a0a10, #d0171f); }
+  .steps-text .cell:nth-child(4) .mnum { background: linear-gradient(90deg, #a5131a, var(--red)); }
+  .mnum span { position: absolute; left: 18px; top: 20px; font-size: 80px; line-height: 1.21; color: rgba(255,255,255,.3); }
+  .steps-wrap { padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); }
+  .footer-row { grid-template-columns: 1fr auto; }
+  .footer-row .copy { grid-column: 1 / -1; grid-row: 2; }
+}
+.mnum { display: none; }
+@media (max-width: 640px) { .dbr { display: none; } }
+@media (max-width: 640px) {
+  :root { --gutter: 16px; }
+  body { font-size: 16px; }
+  .h2, .hero h1 { font-size: 28px; letter-spacing: 0.02em; }
+  .hero { min-height: 0; background-position: 70% center; }
+  .hero .wrap { padding-block: 130px 72px; }
+  .hero p { font-size: 16px; margin-top: 20px; }
+  .btn { width: 100%; min-width: 0; font-size: 18px; }
+  .hero .btn { margin-left: 0; margin-top: 28px; }
+  .about-text { padding-top: 56px; }
+  .about-text p { font-size: 16px; margin-top: 20px; }
+  .about .map { top: 360px; }
+  .supply-title { padding-top: 150px; }
+  .cards { grid-template-columns: 1fr; margin-top: 32px; gap: 12px; }
+  .card { min-height: 0; padding: 150px 20px 24px; gap: 12px; }
+  .card h3 { font-size: 22px; }
+  .card p { font-size: 16px; }
+  .adv { padding-top: 72px; }
+  .adv-list { margin-top: 24px; }
+  .adv-list h3 { font-size: 20px; }
+  .adv-list p { font-size: 16px; }
+  .steps { padding-top: 72px; }
+  .steps-grid.steps-text { grid-template-columns: 1fr; gap: 28px; }
+  .steps-text h3 { font-size: 20px; }
+  .steps-text p { font-size: 16px; margin-top: 8px; max-width: none; }
+  .contact { padding-top: 72px; padding-bottom: 64px; }
+  .contact-grid { gap: 32px; }
+  .contact-info .lead, .contact-info .direct { font-size: 16px; }
+  .form { grid-template-columns: 1fr; }
+  .field textarea { height: 200px; }
+  .form-foot { flex-direction: column; align-items: stretch; }
+  .footer-row { grid-template-columns: 1fr; gap: 12px; }
+  .footer-row .copy { grid-row: auto; }
+}
+</style>
+
+</head>
+<body>
+<header class="topbar" id="top">
+  <div class="bar">
+    <a class="logo" href="#top" aria-label="Шелковый путь — на главную">
+      <img class="mark" src="assets/logo-mark-white.svg" alt="">
+      <img class="word" src="assets/logo-text-white.svg" alt="">
+    </a>
+    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav">
+      <a href="#about">О компании</a>
+      <a href="#services">Услуги</a>
+      <a href="#advantages">Преимущества</a>
+      <a href="#process">Порядок работы</a>
+      <a href="#contacts">Контакты</a>
+      <a class="nav-cta" href="#contacts">Заявка</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Привезем оборудование <br>и&nbsp;технологии из Китая <br class="dbr">напрямую от&nbsp;производителей</h1>
+      <p>Электронные компоненты, IT-оборудование, производственные линии и&nbsp;лицензионное&nbsp;ПО – без посредников, с&nbsp;оплатой, логистикой и&nbsp;таможенным оформлением под ключ.</p>
+      <a class="btn btn-light" href="#contacts">Оставить заявку</a>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="map" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="about-text">
+        <h2 class="h2">«Шелковый путь» –простое решение для непростых поставок</h2>
+        <p>«Шелковый путь» – российская компания, специализирующаяся на поставках товаров и&nbsp;оборудования для бизнеса. У&nbsp;нас большой опыт работы с&nbsp;Китаем и&nbsp;странами СНГ, прямые контакты с&nbsp;производителями и&nbsp;отлаженные логистические и&nbsp;платежные каналы. Это позволяет проводить сложные трансграничные поставки быстро, без лишних посредников и&nbsp;по&nbsp;выгодной цене.</p>
+      </div>
+      <h2 class="h2 supply-title" id="services">Прямые поставки из Китая – от компонентов до готовых производственных линий</h2>
+    </div>
+    <div class="cards">
+      <article class="card card-photo chips">
+        <h3>Электронные компоненты</h3>
+        <p>Чипы от ведущих производителей Китая для промышленных и&nbsp;IT-задач. Прямые поставки с&nbsp;завода –конкурентная цена и&nbsp;подтвержденное качество.</p>
+      </article>
+      <article class="card card-red">
+        <h3>IT-оборудование</h3>
+        <p>Серверы и&nbsp;решения для дата-центров от&nbsp;ведущих мировых производителей. Подбор конфигурации, сервисная и&nbsp;гарантийная поддержка.</p>
+      </article>
+      <article class="card card-photo machine">
+        <h3>Производственное оборудование</h3>
+        <p>Для легкой промышленности, металлообработки, обрабатывающей и&nbsp;химической промышленности и&nbsp;других отраслей – под конкретную задачу.</p>
+      </article>
+      <article class="card card-red">
+        <h3>Лицензионное ПО</h3>
+        <p>Операционные системы, графические редакторы, офисные пакеты, ПО для систем безопасности – то, что сейчас сложно купить напрямую.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="adv" id="advantages">
+    <div class="wrap">
+      <div class="adv-inner">
+        <h2 class="h2">Почему клиенты выбирают нас</h2>
+        <ul class="adv-list">
+          <li><h3>Большой опыт</h3><p>Поставки товаров и&nbsp;оборудования из Китая и&nbsp;стран СНГ в&nbsp;Россию.</p></li>
+          <li><h3>Решаем вопрос <br>с&nbsp;оплатой</h3><p>Стабильные каналы для трансграничных платежей в&nbsp;Китай.</p></li>
+          <li><h3>Выгодные цены</h3><p>Прямая работа с&nbsp;производителями – без наценки посредников.</p></li>
+          <li><h3>Сертифицированное оборудование</h3><p>На все поставляемое оборудование предоставляются сертификаты.</p></li>
+          <li><h3>Работаем напрямую <br>с&nbsp;производителями</h3><p>Прямые каналы поставок с&nbsp;производителями в&nbsp;Китае.</p></li>
+          <li><h3>Сжатые сроки поставки</h3><p>Проверенные логистические партнеры.</p></li>
+          <li><h3>Помощь <br>на&nbsp;таможне</h3><p>Сопровождаем и&nbsp;оформляем товар на&nbsp;границе.</p></li>
+          <li><h3>Сервис <br>и&nbsp;поддержка</h3><p>Сервисное обслуживание, гарантийная и&nbsp;постгарантийная поддержка клиентов.</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="steps" id="process">
+    <div class="wrap"><h2 class="h2">Как проходит поставка</h2></div>
+    <div class="steps-bar" aria-hidden="true">
+      <div class="steps-grid">
+        <div class="cell"><span class="num">01</span></div>
+        <div class="cell"><span class="num">02</span></div>
+        <div class="cell"><span class="num">03</span></div>
+        <div class="cell"><span class="num">04</span></div>
+      </div>
+    </div>
+    <div class="steps-wrap">
+      <ol class="steps-grid steps-text" style="list-style:none;margin-block:0;padding-inline-start:0">
+        <li class="cell"><span class="mnum" aria-hidden="true"><span>01</span></span><h3>Заявка</h3><p>Вы описываете задачу: что нужно привезти и&nbsp;в&nbsp;каком объеме.</p></li>
+        <li class="cell"><span class="mnum" aria-hidden="true"><span>02</span></span><h3>Подбор и&nbsp;расчет</h3><p>Подбираем поставщика в&nbsp;Китае, согласуем характеристики, сроки и&nbsp;стоимость.</p></li>
+        <li class="cell"><span class="mnum" aria-hidden="true"><span>03</span></span><h3>Оплата <br>и&nbsp;логистика</h3><p>Организуем оплату по&nbsp;проверенным каналам и&nbsp;доставку с&nbsp;логистическими партнерами.</p></li>
+        <li class="cell"><span class="mnum" aria-hidden="true"><span>04</span></span><h3>Таможня <br>и&nbsp;поставка</h3><p>Оформляем товар на&nbsp;границе и&nbsp;доставляем вам вместе с&nbsp;сертификатами.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="contact" id="contacts">
+    <div class="wrap contact-grid">
+      <div class="contact-info">
+        <h2 class="h2">Обсудим <br>вашу поставку</h2>
+        <p class="lead">Оставьте заявку –свяжемся с&nbsp;вами, уточним детали и&nbsp;рассчитаем стоимость и&nbsp;сроки поставки.</p>
+        <p class="direct">Свяжитесь напрямую<br><a class="phone" href="tel:+79299629800">+7 (929) 962-98-00</a><br>Виктор Рачковский</p>
+      </div>
+      <form class="form" id="lead-form" novalidate>
+        <div class="field"><input id="f-name" name="name" type="text" placeholder=" " autocomplete="name" required><label for="f-name">Ваше имя</label></div>
+        <div class="field"><input id="f-inn" name="inn" type="text" inputmode="numeric" placeholder=" " maxlength="12"><label for="f-inn">ИНН (10 или 12 цифр)</label></div>
+        <div class="field"><input id="f-phone" name="phone" type="tel" placeholder=" " autocomplete="tel" required><label for="f-phone">Телефон</label></div>
+        <div class="field"><input id="f-email" name="email" type="email" placeholder=" " autocomplete="email"><label for="f-email">E-mail</label></div>
+        <div class="field full"><textarea id="f-msg" name="message" placeholder=" "></textarea><label for="f-msg">Ваше сообщение</label></div>
+        <div class="form-foot">
+          <div class="checks">
+            <label class="check" id="c-robot"><input id="f-robot" type="checkbox" required><span class="box"><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.2"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span>Я не робот</label>
+            <label class="check" id="c-agree"><input id="f-agree" type="checkbox" required><span class="box"><svg viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2.2"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span>Согласен(-на) на обработку персональных данных в соответствии с политикой конфиденциальности</label>
+          </div>
+          <button class="btn btn-dark" type="submit">Оставить заявку</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-row">
+      <a class="logo" href="#top" aria-label="Шелковый путь — наверх">
+        <img class="mark" src="assets/logo-mark-dark.svg" alt="">
+        <img class="word" src="assets/logo-text-dark.svg" alt="">
+      </a>
+      <span class="copy">© 2026 «Шелковый путь». Поставки оборудования и&nbsp;технологий из Китая.</span>
+      <a class="phone" href="tel:+79299629800">+7 (929) 962-98-00</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var bar = document.querySelector('.topbar');
+  var burger = document.querySelector('.burger');
+  burger.addEventListener('click', function () {
+    var open = bar.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.querySelectorAll('.nav a').forEach(function (a) {
+    a.addEventListener('click', function () { bar.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); });
+  });
+
+  var form = document.getElementById('lead-form');
+  var inn = document.getElementById('f-inn');
+  inn.addEventListener('input', function () { inn.value = inn.value.replace(/\D/g, '').slice(0, 12); });
+
+  function setErr(input, msg) {
+    var f = input.closest('.field');
+    var e = f.querySelector('.err');
+    if (msg) {
+      f.classList.add('invalid');
+      if (!e) { e = document.createElement('span'); e.className = 'err'; f.appendChild(e); }
+      e.textContent = msg;
+    } else {
+      f.classList.remove('invalid');
+      if (e) e.remove();
+    }
+  }
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var ok = true;
+    var name = document.getElementById('f-name');
+    var phone = document.getElementById('f-phone');
+    var email = document.getElementById('f-email');
+    setErr(name, name.value.trim() ? '' : 'Укажите имя'); if (!name.value.trim()) ok = false;
+    var digits = phone.value.replace(/\D/g, '');
+    var pOk = digits.length >= 10;
+    setErr(phone, pOk ? '' : 'Укажите телефон, минимум 10 цифр'); if (!pOk) ok = false;
+    var iOk = !inn.value || inn.value.length === 10 || inn.value.length === 12;
+    setErr(inn, iOk ? '' : 'ИНН состоит из 10 или 12 цифр'); if (!iOk) ok = false;
+    var eOk = !email.value || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
+    setErr(email, eOk ? '' : 'Проверьте адрес почты'); if (!eOk) ok = false;
+    ['robot', 'agree'].forEach(function (k) {
+      var c = document.getElementById('f-' + k);
+      document.getElementById('c-' + k).classList.toggle('invalid', !c.checked);
+      if (!c.checked) ok = false;
+    });
+    if (!ok) { var first = form.querySelector('.invalid input, .invalid'); if (first && first.focus) first.focus(); return; }
+    form.innerHTML = '<div class="form-done" role="status"><h3>Спасибо, заявка принята</h3><p>Мы свяжемся с вами, уточним детали и рассчитаем стоимость и сроки поставки.</p></div>';
+  });
+})();
+</script>
+</body>
+</html>
